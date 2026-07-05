@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+.back-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.back-home svg {
+  width: 24px;
+  height: 24px;
+}
+.back-home:hover {
+  color: #ff9200;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+.times {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 180px;
+}
+.timer {
+  font-family: Orbitron;
+  /* font-family: "Roboto Mono", monospace; */
+  font-size: 180px;
+  line-height: 180px;
+  color: #ff9200;
+}
+.mil-sec {
+  font-family: Orbitron;
+  /* font-family: "Roboto Mono", monospace; */
+  font-size: 80px;
+  line-height: 80px;
+  color: #ff9200;
+  margin-bottom: 13px;
+}
+.buttons {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.reset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 200px;
+  background-color: white;
+  border-radius: 500px;
+  font-family: Roboto;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 200px;
+  background-color: rgb(206, 22, 22);
+  border-radius: 500px;
+  font-family: Roboto;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.stop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 200px;
+  background-color: rgb(91, 91, 91);
+  border-radius: 500px;
+  font-family: Roboto;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.reset:hover {
+  background-color: rgb(241, 241, 241);
+}
+.start:hover {
+  background-color: rgb(163, 24, 24);
+}
+.stop:hover {
+  background-color: rgb(85, 85, 85);
+}
+.reset:active {
+  transform: scale(0.95);
+}
+.start:active {
+  transform: scale(0.95);
+}
+.stop:active {
+  transform: scale(0.95);
+}

@@ -1,0 +1,115 @@
+body {
+  background-color: black;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: Roboto;
+}
+.back-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.back-home svg {
+  width: 24px;
+  height: 24px;
+}
+.back-home:hover {
+  color: #ff9200;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.messege {
+  margin: 0;
+  font-size: 60px;
+  line-height: 80px;
+  color: blue;
+  text-shadow: 0 0 15px blue;
+}
+.game-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.player1-score {
+  font-size: 50px;
+  line-height: 50px;
+  color: rgb(0, 0, 255);
+  text-shadow: 0 0 15px blue;
+  font-weight: 600;
+}
+.player2-score {
+  font-size: 50px;
+  line-height: 50px;
+  color: red;
+  text-shadow: 0 0 15px red;
+  font-weight: 600;
+}
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(3, 200px);
+}
+.cell {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.cell:nth-child(3n-2),
+.cell:nth-child(3n-1) {
+  border-right: 4px solid white;
+  /* filter: drop-shadow(0 0 7px white); */
+}
+
+.cell:nth-child(-n + 6) {
+  border-bottom: 4px solid white;
+  /* filter: drop-shadow(0 0 7px white); */
+}
+.restart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 150px;
+  font-size: 25px;
+  color: white;
+  border: 3px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.restart:hover {
+  color: black;
+  background-color: white;
+}
+.cell.x::before {
+  content: "✕";
+  font-size: 140px;
+  line-height: 140px;
+  font-weight: 900;
+  color: blue;
+  text-shadow: 0 0 25px blue;
+}
+.cell.o::before {
+  content: "⭕";
+  font-size: 110px;
+  line-height: 110px;
+  color: red;
+  text-shadow: 0 0 25px red;
+}

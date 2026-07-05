@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tip Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="back-home" href="../index.html" aria-label="Back">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m12 19-7-7 7-7" />
+        <path d="M19 12H5" />
+      </svg>
+    </a>
+    <div class="title">Tip Calculator</div>
+    <div class="calculator">
+      <div class="bill">
+        <div class="txt">Bill</div>
+        <div class="bill-input">
+          <div class="txt-bill">₮</div>
+          <input type="text" class="input" id="input" value="0.00" />
+        </div>
+      </div>
+      <div class="tip">
+        <div class="txt">Select Tip %</div>
+        <div class="tip-grid" id="tips">
+          <button class="tip-but">5%</button>
+          <button class="tip-but">10%</button>
+          <button class="tip-but">15%</button>
+          <button class="tip-but">25%</button>
+          <button class="tip-but">35%</button>
+          <button class="tip-but">50%</button>
+          <button class="tip-but">65%</button>
+          <button class="tip-but">80%</button>
+        </div>
+      </div>
+      <div class="total">
+        <div class="txt total-txt" id="total">0.00</div>
+        <div class="reset" id="reset">Reset</div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

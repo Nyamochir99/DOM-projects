@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #2f2f2f;
+  font-family: Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+h1 {
+  margin: 0 0 60px 0;
+  font-size: 48px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 180px);
+  gap: 40px;
+}
+.container a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 20px;
+  border-radius: 20px;
+  transition: 0.3s ease;
+}
+.container a:hover {
+  background-color: #3a3a3a;
+  transform: scale(1.05);
+}
+.icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.icon svg {
+  width: 40px;
+  height: 40px;
+}
+.icon-calc {
+  background-color: #84b018;
+  color: #fff;
+}
+.icon-tip {
+  background: linear-gradient(to right, #86f1c0, #8ae3d6, #8be0dc);
+  color: #3a958a;
+}
+.icon-stopwatch {
+  background-color: #ff9200;
+  color: #fff;
+}
+.icon-tictactoe {
+  background-color: #3d4a5c;
+  color: #fff;
+}

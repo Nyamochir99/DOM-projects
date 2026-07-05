@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #2f2f2f;
+  font-family: Roboto;
+}
+.back-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.back-home svg {
+  width: 24px;
+  height: 24px;
+}
+.back-home:hover {
+  color: #ff9200;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.phone {
+  width: 450px;
+  height: 800px;
+  border-radius: 60px;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+.input-sec {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.input {
+  width: 390px;
+  height: 65px;
+  text-align: right;
+  font-size: 65px;
+  font-weight: 400;
+  color: #fff;
+  border: none;
+  background-color: black;
+  box-shadow: none;
+  padding: 0 30px;
+  outline: none;
+}
+.button-sec {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 90px);
+  grid-template-rows: repeat(5, 90px);
+  row-gap: 10px;
+  column-gap: 10px;
+}
+.button {
+  border-radius: 100%;
+  height: 90px;
+  width: 90px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  cursor: pointer;
+}
+.color1 {
+  background-color: #5a5a5a;
+  transition: 0.5s ease;
+}
+.color2 {
+  background-color: #ff9200;
+  transition: 0.5s ease;
+}
+.color3 {
+  background-color: #2f2f2f;
+  transition: 0.5s ease;
+}
+.color1:hover {
+  background-color: #6a6a6a;
+}
+.color2:hover {
+  background-color: #ffa939;
+}
+.color3:hover {
+  background-color: #545454;
+}
+.history {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  text-align: right;
+  white-space: nowrap;
+}
+.overflow {
+  width: 390px;
+  max-width: 390px;
+  display: block;
+  height: 30px;
+  margin: 0 30px;
+  margin-bottom: 10px;
+  overflow: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
+}
+.hidden {
+  display: none;
+}
+
+/* keyboard support */
+
+.color1.kbsup {
+  background-color: #6a6a6a;
+}
+.color2.kbsup {
+  background-color: #ffa939;
+}
+.color3.kbsup {
+  background-color: #545454;
+}
+.button.kbsup {
+  transform: scale(0.9);
+}
