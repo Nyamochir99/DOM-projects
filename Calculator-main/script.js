@@ -48,9 +48,51 @@ const formatResult = (value) => {
   return rounded.toFixed(5).replace(/0+$/, "").replace(/\.$/, "");
 };
 
+const getLastSegment = (value) => {
+  let lastIndex = -1;
+  const start = value.startsWith("-") ? 1 : 0;
+  for (let i = start; i < value.length; i++) {
+    if ("+x/%".includes(value[i]) || (value[i] === "-" && i > start)) {
+      lastIndex = i;
+    }
+  }
+  return value.slice(lastIndex + 1);
+};
+
+const hasTrailingOperator = (value) => {
+  if (value.endsWith("%")) return false;
+  if (/[+x/]$/.test(value)) return true;
+  if (!value.endsWith("-")) return false;
+
+  const before = value.slice(0, -1);
+  if (before === "" || before === "-") return true;
+
+  const lastChar = before.slice(-1);
+  return "+x/%".includes(lastChar) || /[0-9.]/.test(lastChar);
+};
+
 let hariu = false;
 
+const startDigitInput = (digit) => {
+  if (hariu) {
+    input.value = digit;
+    hariu = false;
+    history.classList.add("hidden");
+    scrollToRight();
+    return true;
+  }
+  return false;
+};
+
+const startOperatorInput = () => {
+  if (hariu) {
+    hariu = false;
+    history.classList.add("hidden");
+  }
+};
+
 one.addEventListener("click", () => {
+  if (startDigitInput("1")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -65,6 +107,7 @@ one.addEventListener("click", () => {
   scrollToRight();
 });
 two.addEventListener("click", () => {
+  if (startDigitInput("2")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -79,6 +122,7 @@ two.addEventListener("click", () => {
   scrollToRight();
 });
 three.addEventListener("click", () => {
+  if (startDigitInput("3")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -93,6 +137,7 @@ three.addEventListener("click", () => {
   scrollToRight();
 });
 four.addEventListener("click", () => {
+  if (startDigitInput("4")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -107,6 +152,7 @@ four.addEventListener("click", () => {
   scrollToRight();
 });
 five.addEventListener("click", () => {
+  if (startDigitInput("5")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -121,6 +167,7 @@ five.addEventListener("click", () => {
   scrollToRight();
 });
 six.addEventListener("click", () => {
+  if (startDigitInput("6")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -135,6 +182,7 @@ six.addEventListener("click", () => {
   scrollToRight();
 });
 seven.addEventListener("click", () => {
+  if (startDigitInput("7")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -149,6 +197,7 @@ seven.addEventListener("click", () => {
   scrollToRight();
 });
 eight.addEventListener("click", () => {
+  if (startDigitInput("8")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -163,6 +212,7 @@ eight.addEventListener("click", () => {
   scrollToRight();
 });
 nine.addEventListener("click", () => {
+  if (startDigitInput("9")) return;
   let tiirsen = input.value;
   let tiirsenLast = tiirsen.slice(0, -1);
   if (/[+/%x-]0$/.test(input.value)) {
@@ -177,6 +227,13 @@ nine.addEventListener("click", () => {
   scrollToRight();
 });
 zero.addEventListener("click", () => {
+  if (hariu) {
+    input.value = "0";
+    hariu = false;
+    history.classList.add("hidden");
+    scrollToRight();
+    return;
+  }
   if (/[+/%x-]$/.test(input.value)) {
     input.value += "0";
   } else if (/[+/%x-]0$/.test(input.value)) {
@@ -191,14 +248,19 @@ zero.addEventListener("click", () => {
   scrollToRight();
 });
 dot.addEventListener("click", () => {
+  if (hariu) {
+    input.value = "0.";
+    hariu = false;
+    history.classList.add("hidden");
+    scrollToRight();
+    return;
+  }
   if (input.value === "") {
     input.value = "0.";
+  } else if (getLastSegment(input.value).includes(".")) {
+    input.value += "";
   } else {
-    if (input.value.includes(".")) {
-      input.value += "";
-    } else {
-      input.value += ".";
-    }
+    input.value += ".";
   }
   scrollToRight();
 });
@@ -207,7 +269,8 @@ nemehHasah.addEventListener("click", () => {
     input.value.includes("+") ||
     input.value.includes("x") ||
     input.value.includes("%") ||
-    input.value.includes("/")
+    input.value.includes("/") ||
+    /(?<=[0-9])-/.test(input.value)
   ) {
     return;
   } else {
@@ -231,12 +294,16 @@ nemehHasah.addEventListener("click", () => {
 });
 clear.addEventListener("click", () => {
   input.value = "";
+  hariu = false;
+  history.classList.add("hidden");
 });
 backspace.addEventListener("click", () => {
+  hariu = false;
   input.value = input.value.slice(0, -1);
   scrollToRight();
 });
 percentage.addEventListener("click", () => {
+  startOperatorInput();
   let tilt = input.value;
   let lastTwo = tilt.slice(-2);
   if (input.value === "-") {
@@ -267,6 +334,7 @@ percentage.addEventListener("click", () => {
   scrollToRight();
 });
 huvaah.addEventListener("click", () => {
+  startOperatorInput();
   let tilt = input.value;
   let lastTwo = tilt.slice(-2);
   if (input.value === "-") {
@@ -297,6 +365,7 @@ huvaah.addEventListener("click", () => {
   scrollToRight();
 });
 urjih.addEventListener("click", () => {
+  startOperatorInput();
   let tilt = input.value;
   let lastTwo = tilt.slice(-2);
   if (input.value === "-") {
@@ -327,6 +396,7 @@ urjih.addEventListener("click", () => {
   scrollToRight();
 });
 sum.addEventListener("click", () => {
+  startOperatorInput();
   let tilt = input.value;
   let lastTwo = tilt.slice(-2);
   if (input.value === "-") {
@@ -357,6 +427,7 @@ sum.addEventListener("click", () => {
   scrollToRight();
 });
 hasah.addEventListener("click", () => {
+  startOperatorInput();
   if (input.value.endsWith("-")) {
     input.value += "";
   } else {
@@ -366,7 +437,6 @@ hasah.addEventListener("click", () => {
 });
 tentsuu.addEventListener("click", () => {
   let tenc = input.value;
-  let tiirchlee = tenc.slice(0, -1);
   let blyat;
   if (tenc === "" || tenc === "-") {
     return;
@@ -375,39 +445,45 @@ tentsuu.addEventListener("click", () => {
   if (!/[+/%x-]/.test(tiltProMax)) {
     return;
   }
-  // let boliyoo = /[+/%x-]$/.test(tenc) ? tenc.slice(0, -1) : tenc;
-  // let boliiPls = boliyoo.startsWith("-") ? boliyoo.slice(1) : boliyoo;
-  if (/[+/%x-]$/.test(tenc)) {
+  if (hasTrailingOperator(tenc)) {
     return;
   }
 
   if (tenc.includes("x")) {
     tenc = tenc.replaceAll("x", "*");
   }
-  if (tiirchlee.includes("x")) {
-    tiirchlee = tiirchlee.replaceAll("x", "*");
-  }
   if (/[+/%x-]/.test(input.value)) {
-    if (tenc.includes("%")) {
-      if (tenc.endsWith("%")) {
-        let huviToo = tenc.split("%").length - 1;
-        if (huviToo > 1) {
-          blyat = "0";
-        } else {
+    try {
+      if (tenc.includes("%")) {
+        if (tenc.endsWith("%")) {
+          let huviToo = tenc.split("%").length - 1;
+          if (huviToo > 1) {
+            input.value = "Error";
+            hariu = true;
+            return;
+          }
           blyat = eval(tenc.replace("%", "*0.01"));
+        } else {
+          input.value = "Error";
+          hariu = true;
+          return;
         }
+      } else if (tenc === "") {
+        return;
       } else {
-        blyat = "0";
+        blyat = eval(tenc);
       }
-    } else if (tenc === "") {
-      blyat = "";
-    } else {
-      blyat = eval(tenc);
+    } catch {
+      input.value = "Error";
+      hariu = true;
+      return;
     }
   } else {
     return;
   }
   if (!isFinite(blyat)) {
+    input.value = "Error";
+    hariu = true;
     return;
   }
   history.innerText = input.value;
@@ -421,6 +497,7 @@ tentsuu.addEventListener("click", () => {
 history.addEventListener("click", () => {
   input.value = history.innerText;
   history.classList.add("hidden");
+  hariu = false;
   scrollToRight();
 });
 
