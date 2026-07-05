@@ -28,6 +28,26 @@ const scrollHistory = () => {
   history.scrollLeft = history.scrollWidth;
 };
 
+const formatResult = (value) => {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return String(value);
+
+  const decimalLength = (() => {
+    const str = num.toString();
+    if (str.includes("e")) return 6;
+    const decimal = str.split(".")[1];
+    return decimal ? decimal.length : 0;
+  })();
+
+  const rounded = Math.round(num * 1e5) / 1e5;
+
+  if (decimalLength <= 5) {
+    return String(rounded).replace(/\.?0+$/, "") || "0";
+  }
+
+  return rounded.toFixed(5).replace(/0+$/, "").replace(/\.$/, "");
+};
+
 let hariu = false;
 
 one.addEventListener("click", () => {
@@ -392,7 +412,7 @@ tentsuu.addEventListener("click", () => {
   }
   history.innerText = input.value;
   history.classList.remove("hidden");
-  input.value = blyat;
+  input.value = formatResult(blyat);
   hariu = true;
   scrollToRight();
   scrollHistory();
