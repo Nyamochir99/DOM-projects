@@ -382,7 +382,7 @@ tentsuu.addEventListener("click", () => {
     } else if (tenc === "") {
       blyat = "";
     } else {
-      blyat = eval(tenc);
+      blyat = eval(tenc).toFixed(5);
     }
   } else {
     return;
