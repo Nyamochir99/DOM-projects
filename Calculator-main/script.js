@@ -382,7 +382,8 @@ tentsuu.addEventListener("click", () => {
     } else if (tenc === "") {
       blyat = "";
     } else {
-      blyat = eval(tenc).toFixed(5);
+      let tiirelttt = eval(tenc);
+      blyat = Number.isInteger(tiirelttt) ? bodolt : parseFloat(tiirelttt.toFixed(5));
     }
   } else {
     return;
