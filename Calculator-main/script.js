@@ -1,560 +1,82 @@
-const input = document.getElementById("input");
-const backspace = document.getElementById("backspace");
-const clear = document.getElementById("clear");
-const percentage = document.getElementById("percentage");
-const huvaah = document.getElementById("huvaah");
-const urjih = document.getElementById("urjih");
-const hasah = document.getElementById("hasah");
-const sum = document.getElementById("sum");
-const nemehHasah = document.getElementById("nemehHasah");
-const dot = document.getElementById("dot");
-const tentsuu = document.getElementById("tentsuu");
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const zero = document.getElementById("zero");
-const history = document.getElementById("history");
-
-const scrollToRight = () => {
-  input.scrollLeft = input.scrollWidth;
-};
-const scrollHistory = () => {
-  history.scrollLeft = history.scrollWidth;
-};
-
-const formatResult = (value) => {
-  const num = Number(value);
-  if (!Number.isFinite(num)) return String(value);
-
-  const decimalLength = (() => {
-    const str = num.toString();
-    if (str.includes("e")) return 6;
-    const decimal = str.split(".")[1];
-    return decimal ? decimal.length : 0;
-  })();
-
-  const rounded = Math.round(num * 1e5) / 1e5;
-
-  if (decimalLength <= 5) {
-    return String(rounded).replace(/\.?0+$/, "") || "0";
-  }
-
-  return rounded.toFixed(5).replace(/0+$/, "").replace(/\.$/, "");
-};
-
-const getLastSegment = (value) => {
-  let lastIndex = -1;
-  const start = value.startsWith("-") ? 1 : 0;
-  for (let i = start; i < value.length; i++) {
-    if ("+x/%".includes(value[i]) || (value[i] === "-" && i > start)) {
-      lastIndex = i;
-    }
-  }
-  return value.slice(lastIndex + 1);
-};
-
-const hasTrailingOperator = (value) => {
-  if (value.endsWith("%")) return false;
-  if (/[+x/]$/.test(value)) return true;
-  if (!value.endsWith("-")) return false;
-
-  const before = value.slice(0, -1);
-  if (before === "" || before === "-") return true;
-
-  const lastChar = before.slice(-1);
-  return "+x/%".includes(lastChar) || /[0-9.]/.test(lastChar);
-};
-
-let hariu = false;
-
-const startDigitInput = (digit) => {
-  if (hariu) {
-    input.value = digit;
-    hariu = false;
-    history.classList.add("hidden");
-    scrollToRight();
-    return true;
-  }
-  return false;
-};
-
-const startOperatorInput = () => {
-  if (hariu) {
-    hariu = false;
-    history.classList.add("hidden");
-  }
-};
-
-one.addEventListener("click", () => {
-  if (startDigitInput("1")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "1";
-  } else {
-    if (input.value === "0") {
-      input.value = "1";
-    } else {
-      input.value += "1";
-    }
-  }
-  scrollToRight();
-});
-two.addEventListener("click", () => {
-  if (startDigitInput("2")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "2";
-  } else {
-    if (input.value === "0") {
-      input.value = "2";
-    } else {
-      input.value += "2";
-    }
-  }
-  scrollToRight();
-});
-three.addEventListener("click", () => {
-  if (startDigitInput("3")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "3";
-  } else {
-    if (input.value === "0") {
-      input.value = "3";
-    } else {
-      input.value += "3";
-    }
-  }
-  scrollToRight();
-});
-four.addEventListener("click", () => {
-  if (startDigitInput("4")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "4";
-  } else {
-    if (input.value === "0") {
-      input.value = "4";
-    } else {
-      input.value += "4";
-    }
-  }
-  scrollToRight();
-});
-five.addEventListener("click", () => {
-  if (startDigitInput("5")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "5";
-  } else {
-    if (input.value === "0") {
-      input.value = "5";
-    } else {
-      input.value += "5";
-    }
-  }
-  scrollToRight();
-});
-six.addEventListener("click", () => {
-  if (startDigitInput("6")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "6";
-  } else {
-    if (input.value === "0") {
-      input.value = "6";
-    } else {
-      input.value += "6";
-    }
-  }
-  scrollToRight();
-});
-seven.addEventListener("click", () => {
-  if (startDigitInput("7")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "7";
-  } else {
-    if (input.value === "0") {
-      input.value = "7";
-    } else {
-      input.value += "7";
-    }
-  }
-  scrollToRight();
-});
-eight.addEventListener("click", () => {
-  if (startDigitInput("8")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "8";
-  } else {
-    if (input.value === "0") {
-      input.value = "8";
-    } else {
-      input.value += "8";
-    }
-  }
-  scrollToRight();
-});
-nine.addEventListener("click", () => {
-  if (startDigitInput("9")) return;
-  let tiirsen = input.value;
-  let tiirsenLast = tiirsen.slice(0, -1);
-  if (/[+/%x-]0$/.test(input.value)) {
-    input.value = tiirsenLast + "9";
-  } else {
-    if (input.value === "0") {
-      input.value = "9";
-    } else {
-      input.value += "9";
-    }
-  }
-  scrollToRight();
-});
-zero.addEventListener("click", () => {
-  if (hariu) {
-    input.value = "0";
-    hariu = false;
-    history.classList.add("hidden");
-    scrollToRight();
-    return;
-  }
-  if (/[+/%x-]$/.test(input.value)) {
-    input.value += "0";
-  } else if (/[+/%x-]0$/.test(input.value)) {
-    input.value += "";
-  } else {
-    if (input.value === "0") {
-      input.value = "0";
-    } else {
-      input.value += "0";
-    }
-  }
-  scrollToRight();
-});
-dot.addEventListener("click", () => {
-  if (hariu) {
-    input.value = "0.";
-    hariu = false;
-    history.classList.add("hidden");
-    scrollToRight();
-    return;
-  }
-  if (input.value === "") {
-    input.value = "0.";
-  } else if (getLastSegment(input.value).includes(".")) {
-    input.value += "";
-  } else {
-    input.value += ".";
-  }
-  scrollToRight();
-});
-nemehHasah.addEventListener("click", () => {
-  if (
-    input.value.includes("+") ||
-    input.value.includes("x") ||
-    input.value.includes("%") ||
-    input.value.includes("/") ||
-    /(?<=[0-9])-/.test(input.value)
-  ) {
-    return;
-  } else {
-    if (input.value.startsWith("-")) {
-      if (input.value.split("-").length - 1 > 1) {
-        return;
-      } else if (input.value === "-") {
-        input.value += "";
-      } else {
-        input.value = input.value.slice(1);
-      }
-    } else if (input.value.split("-").length - 1 > 1) {
-      return;
-    } else if (input.value === "") {
-      input.value = "";
-    } else {
-      input.value = "-" + input.value;
-    }
-  }
-  scrollToRight();
-});
-clear.addEventListener("click", () => {
-  input.value = "";
-  hariu = false;
-  history.classList.add("hidden");
-});
-backspace.addEventListener("click", () => {
-  hariu = false;
-  input.value = input.value.slice(0, -1);
-  scrollToRight();
-});
-percentage.addEventListener("click", () => {
-  startOperatorInput();
-  let tilt = input.value;
-  let lastTwo = tilt.slice(-2);
-  if (input.value === "-") {
-    input.value = "";
-  } else if (
-    input.value.endsWith("+") ||
-    input.value.endsWith("-") ||
-    input.value.endsWith("x") ||
-    input.value.endsWith("/") ||
-    input.value.endsWith("%")
-  ) {
-    if (
-      tilt.endsWith("-") &&
-      (lastTwo.startsWith("+") ||
-        lastTwo.startsWith("x") ||
-        lastTwo.startsWith("/") ||
-        lastTwo.startsWith("%"))
-    ) {
-      input.value = tilt.slice(0, -2) + "%";
-    } else {
-      input.value = input.value.slice(0, -1) + "%";
-    }
-  } else if (input.value === "") {
-    input.value += "";
-  } else {
-    input.value += "%";
-  }
-  scrollToRight();
-});
-huvaah.addEventListener("click", () => {
-  startOperatorInput();
-  let tilt = input.value;
-  let lastTwo = tilt.slice(-2);
-  if (input.value === "-") {
-    input.value = "";
-  } else if (
-    input.value.endsWith("+") ||
-    input.value.endsWith("-") ||
-    input.value.endsWith("x") ||
-    input.value.endsWith("/") ||
-    input.value.endsWith("%")
-  ) {
-    if (
-      tilt.endsWith("-") &&
-      (lastTwo.startsWith("+") ||
-        lastTwo.startsWith("x") ||
-        lastTwo.startsWith("/") ||
-        lastTwo.startsWith("%"))
-    ) {
-      input.value = tilt.slice(0, -2) + "/";
-    } else {
-      input.value = input.value.slice(0, -1) + "/";
-    }
-  } else if (input.value === "") {
-    input.value += "";
-  } else {
-    input.value += "/";
-  }
-  scrollToRight();
-});
-urjih.addEventListener("click", () => {
-  startOperatorInput();
-  let tilt = input.value;
-  let lastTwo = tilt.slice(-2);
-  if (input.value === "-") {
-    input.value = "";
-  } else if (
-    input.value.endsWith("+") ||
-    input.value.endsWith("-") ||
-    input.value.endsWith("x") ||
-    input.value.endsWith("/") ||
-    input.value.endsWith("%")
-  ) {
-    if (
-      tilt.endsWith("-") &&
-      (lastTwo.startsWith("+") ||
-        lastTwo.startsWith("x") ||
-        lastTwo.startsWith("/") ||
-        lastTwo.startsWith("%"))
-    ) {
-      input.value = tilt.slice(0, -2) + "x";
-    } else {
-      input.value = input.value.slice(0, -1) + "x";
-    }
-  } else if (input.value === "") {
-    input.value += "";
-  } else {
-    input.value += "x";
-  }
-  scrollToRight();
-});
-sum.addEventListener("click", () => {
-  startOperatorInput();
-  let tilt = input.value;
-  let lastTwo = tilt.slice(-2);
-  if (input.value === "-") {
-    input.value = "";
-  } else if (
-    input.value.endsWith("+") ||
-    input.value.endsWith("-") ||
-    input.value.endsWith("x") ||
-    input.value.endsWith("/") ||
-    input.value.endsWith("%")
-  ) {
-    if (
-      tilt.endsWith("-") &&
-      (lastTwo.startsWith("+") ||
-        lastTwo.startsWith("x") ||
-        lastTwo.startsWith("/") ||
-        lastTwo.startsWith("%"))
-    ) {
-      input.value = tilt.slice(0, -2) + "+";
-    } else {
-      input.value = input.value.slice(0, -1) + "+";
-    }
-  } else if (input.value === "") {
-    input.value += "";
-  } else {
-    input.value += "+";
-  }
-  scrollToRight();
-});
-hasah.addEventListener("click", () => {
-  startOperatorInput();
-  if (input.value.endsWith("-")) {
-    input.value += "";
-  } else {
-    input.value += "-";
-  }
-  scrollToRight();
-});
-tentsuu.addEventListener("click", () => {
-  let tenc = input.value;
-  let blyat;
-  if (tenc === "" || tenc === "-") {
-    return;
-  }
-  let tiltProMax = tenc.startsWith("-") ? tenc.slice(1) : tenc;
-  if (!/[+/%x-]/.test(tiltProMax)) {
-    return;
-  }
-  if (hasTrailingOperator(tenc)) {
-    return;
-  }
-
-  if (tenc.includes("x")) {
-    tenc = tenc.replaceAll("x", "*");
-  }
-  if (/[+/%x-]/.test(input.value)) {
-    try {
-      if (tenc.includes("%")) {
-        if (tenc.endsWith("%")) {
-          let huviToo = tenc.split("%").length - 1;
-          if (huviToo > 1) {
-            input.value = "Error";
-            hariu = true;
-            return;
-          }
-          blyat = eval(tenc.replace("%", "*0.01"));
-        } else {
-          input.value = "Error";
-          hariu = true;
-          return;
-        }
-      } else if (tenc === "") {
-        return;
-      } else {
-        blyat = eval(tenc);
-      }
-    } catch {
-      input.value = "Error";
-      hariu = true;
-      return;
-    }
-  } else {
-    return;
-  }
-  if (!isFinite(blyat)) {
-    input.value = "Error";
-    hariu = true;
-    return;
-  }
-  history.innerText = input.value;
-  history.classList.remove("hidden");
-  input.value = formatResult(blyat);
-  hariu = true;
-  scrollToRight();
-  scrollHistory();
-});
-
-history.addEventListener("click", () => {
-  input.value = history.innerText;
-  history.classList.add("hidden");
-  hariu = false;
-  scrollToRight();
-});
-
-// keyboard support
-
-const keyMap = {
-  0: "zero",
-  1: "one",
-  2: "two",
-  3: "three",
-  4: "four",
-  5: "five",
-  6: "six",
-  7: "seven",
-  8: "eight",
-  9: "nine",
-  ".": "dot",
-  ",": "dot",
-  "+": "sum",
-  "-": "hasah",
-  "*": "urjih",
-  "/": "huvaah",
-  "%": "percentage",
-  Enter: "tentsuu",
-  "=": "tentsuu",
-  Backspace: "backspace",
-  Escape: "clear",
-  Delete: "clear",
-};
-
-document.querySelectorAll(".button").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    if (btn.id !== "tentsuu") {
-      history.classList.add("hidden");
-    }
-  });
-});
-
-window.addEventListener("keydown", (event) => {
-  const buttonId = keyMap[event.key];
-  // if (typeof buttonId === "string")
-  if (buttonId) {
-    event.preventDefault();
-    const btn = document.getElementById(buttonId);
-    if (buttonId !== "tentsuu") {
-      history.classList.add("hidden");
-    }
-
-    btn.classList.add("kbsup");
-    btn.click();
-  }
-});
-
-window.addEventListener("keyup", (event) => {
-  const buttonId = keyMap[event.key];
-  if (buttonId) {
-    const btn = document.getElementById(buttonId);
-    btn.classList.remove("kbsup");
-  }
-});
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="phone">
+      <div class="input-sec">
+        <div class="history hidden overflow" id="history"></div>
+        <input class="input" id="input" type="text" readonly />
+      </div>
+      <div class="button-sec">
+        <div class="button color1" id="backspace">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="55px"
+            viewBox="0 -960 960 960"
+            width="55px"
+            fill="#fff"
+          >
+            <path
+              d="m445.28-336.82 107.8-107.8 107.79 107.8 36.05-35.8L588.46-480l107.38-107.38-35.79-35.8-106.97 107.8-107.8-107.8-35.79 35.8L517.69-480l-108.2 107.38 35.79 35.8ZM358.59-180q-15.03 0-28.2-6.42-13.18-6.42-21.8-18.32L100-480l208.18-275.26q8.62-11.9 21.79-18.32 13.18-6.42 28.21-6.42h439.67q25.8 0 44.18 18.48t18.38 44.09v474.86q0 25.61-18.38 44.09Q823.65-180 797.85-180H358.59ZM162.95-480l185.64 245.13q1.92 2.31 4.42 3.46t5.58 1.15h439.26q5.38 0 8.84-3.46t3.46-8.85v-474.86q0-5.39-3.46-8.85t-8.84-3.46H358.59q-3.08 0-5.58 1.15t-4.42 3.46L162.95-480Zm415.41 0Z"
+            />
+          </svg>
+        </div>
+        <div class="button color1" id="clear">AC</div>
+        <div class="button color1" id="percentage">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#fff"
+          >
+            <path
+              d="M288.5-536.65q-56.09 0-95.28-39.39-39.2-39.38-39.2-95.38 0-56 39.38-95.28t95.38-39.28q56 0 95.28 39.36 39.29 39.35 39.29 95.32 0 56.08-39.39 95.36-39.38 39.29-95.46 39.29Zm-.05-68.13q27.71 0 47.24-19.4t19.53-47.11q0-27.71-19.4-47.01-19.4-19.31-47.11-19.31t-47.01 19.17q-19.31 19.18-19.31 46.89t19.17 47.24q19.18 19.53 46.89 19.53Zm382.76 450.76q-55.93 0-95.24-39.34-39.32-39.33-39.32-95.34 0-56.02 39.39-95.33 39.38-39.32 95.46-39.32 56.09 0 95.4 39.49 39.32 39.49 39.32 95.35 0 55.86-39.54 95.17-39.54 39.32-95.47 39.32Zm47.09-87.48q19.31-19.35 19.31-46.99t-19.17-47.06q-19.18-19.43-46.89-19.43t-47.24 19.35q-19.53 19.35-19.53 46.99t19.4 47.06q19.4 19.43 47.11 19.43t47.01-19.35Zm-516.54 87.48-47.74-47.74 604.46-604.46 47.74 47.74-604.46 604.46Z"
+            />
+          </svg>
+        </div>
+        <div class="button color2" id="huvaah">/</div>
+        <div class="button color3" id="seven">7</div>
+        <div class="button color3" id="eight">8</div>
+        <div class="button color3" id="nine">9</div>
+        <div class="button color2" id="urjih">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="55px"
+            viewBox="0 -960 960 960"
+            width="55px"
+            fill="#fff"
+          >
+            <path
+              d="m300-258-42-42 180-180-180-179 42-42 180 180 179-180 42 42-180 179 180 180-42 42-179-180-180 180Z"
+            />
+          </svg>
+        </div>
+        <div class="button color3" id="four">4</div>
+        <div class="button color3" id="five">5</div>
+        <div class="button color3" id="six">6</div>
+        <div class="button color2" id="hasah">-</div>
+        <div class="button color3" id="one">1</div>
+        <div class="button color3" id="two">2</div>
+        <div class="button color3" id="three">3</div>
+        <div class="button color2" id="sum">+</div>
+        <div class="button color3" id="nemehHasah">±</div>
+        <div class="button color3" id="zero">0</div>
+        <div class="button color3" id="dot">.</div>
+        <div class="button color2" id="tentsuu">=</div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
