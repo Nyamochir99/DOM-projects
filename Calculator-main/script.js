@@ -42,10 +42,17 @@ const formatResult = (value) => {
   const rounded = Math.round(num * 1e5) / 1e5;
 
   if (decimalLength <= 5) {
-    return String(rounded).replace(/\.?0+$/, "") || "0";
+    return (
+      String(rounded)
+        .replace(/(\.\d*?)0+$/, "$1")
+        .replace(/\.$/, "") || "0"
+    );
   }
 
-  return rounded.toFixed(5).replace(/0+$/, "").replace(/\.$/, "");
+  return rounded
+    .toFixed(5)
+    .replace(/(\.\d*?)0+$/, "$1")
+    .replace(/\.$/, "");
 };
 
 const getLastSegment = (value) => {
